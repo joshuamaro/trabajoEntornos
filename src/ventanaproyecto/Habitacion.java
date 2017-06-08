@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 
+
 public class Habitacion {
     private int nHab;
     private int camas;
