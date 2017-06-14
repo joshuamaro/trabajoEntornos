@@ -35,7 +35,7 @@ public class ConectorBD {
     
     // Constructor BD privado --> Singleton
     private ConectorBD() {
-        this.bbdd = "clase.db"; // Nombre de la base de datos
+        this.bbdd = "hotel"; // Nombre de la base de datos
         this.usuario = ""; // No tenemos en SQLite
         this.clave = ""; // No tenemos en SQLite
         this.ruta = getPathBaseDatos();
@@ -126,6 +126,40 @@ public class ConectorBD {
         String pathBD = path+"\\BD\\";
         return pathBD;   
     }
+    public boolean BuscarContraseña(String a,String contraseña){
+        boolean correcto=false;
+        ResultSet rs = consultarBD("select contraseña from Persona where alias = '"+a+"'");
+        String x="";
+        try {
+            while(rs.next()){
+                  x = rs.getString("contraseña");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Mensaje:"+ex.getMessage()+"\nEstado: "+ex.getSQLState()+"\nCodigo de error:"+ex.getErrorCode(),
+                        "Error de consulta",JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println(x);
+        System.out.println(contraseña);
+        if(contraseña.equals(x)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
+    public String BuscarTipo(String text) {
+        String x="";
+        ResultSet rs = consultarBD("select TipoP from Persona where alias = '"+text+"'");
+        try {
+            while(rs.next()){
+                  x = rs.getString("TipoP");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Mensaje:"+ex.getMessage()+"\nEstado: "+ex.getSQLState()+"\nCodigo de error:"+ex.getErrorCode(),
+                        "Error de consulta",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return x;
+    }
 }
 
